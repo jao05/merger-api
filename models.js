@@ -24,6 +24,19 @@ const userCompanySchema = mongoose.Schema({
 
 });
 
+// this is an *instance method* which will be available on all instances
+// of the model. This method will be used to return an object that only
+// exposes *some* of the fields we want from the underlying data
+userCompanySchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    location: this.location,
+    industry: this.industry,
+    contact: this.contact,
+    description: this.description
+  };
+};
+
 // To handle password authentication
 userCompanySchema.methods.validatePassword = function(password) {
   return bcrypt.compare(password, this.password);
