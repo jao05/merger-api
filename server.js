@@ -6,6 +6,25 @@ const {PORT, DATABASE_URL} = require('./config');
 const cors = require('cors');
 const {CLIENT_ORIGIN} = require('./config');
 
+// Import the router files
+const userCompanyRouter = require('./userCompanyRouter');
+const expertRouter = require('./expertRouter');
+
+/*
+// when requests come into `/userCompanyRouter`
+// we'll route them to the express
+// router instance we've imported. Remember,
+// this router instance acts as a modular, mini-express app.
+app.use("/usersCompany", userCompanyRouter);
+
+// when requests come into `/expertRouter`
+// we'll route them to the express
+// router instance we've imported. Remember,
+// this router instance acts as a modular, mini-express app.
+app.use("/experts", expertRouter);
+*/
+
+
 app.use(
     cors({
         origin: CLIENT_ORIGIN
