@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 
-const bcrypt = require('bcryptjs');
+// const bcrypt = require('bcryptjs');
 
 // this is our schema to represent a user company
 const userCompanySchema = mongoose.Schema({
   name: { type: String, required: true },
   location: {  
   	city: String,
-  	state: String
+  	state: String,
   	country: String
   },  
   industry: { type: String, required: true },
@@ -19,7 +19,7 @@ const userCompanySchema = mongoose.Schema({
   description: String,
   openToMerger: Boolean,
   openToAcquisition: Boolean,
-  openToSell: Boolean
+  openToSell: Boolean,
   password: String
 
 });

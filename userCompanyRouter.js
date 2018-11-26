@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const passport = require('passport');
-const localAuth = passport.authenticate('local', {session: false});
+//const passport = require('passport'); ************
+//const localAuth = passport.authenticate('local', {session: false}); *************
 
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
@@ -21,7 +21,7 @@ router.get("/", (req, res) => {
     // models.js in order to only expose the data we want the API return.    
     .then(userComps => {
       res.json({
-        userComps: userComps.map(comp => comp.serialize())
+        companies: userComps.map(comp => comp.serialize())
       });
     })
     .catch(err => {
@@ -36,3 +36,5 @@ router.get("/", (req, res) => {
 // PUT or UPDATE
 
 // DELETE
+
+module.exports = router;
