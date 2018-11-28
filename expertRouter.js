@@ -27,6 +27,17 @@ router.get("/", (req, res) => {
 });
 
 // POST
+router.post("/", jsonParser, (req, res) => {
+  const requiredFields = ["name", "type", "contact", "location"];
+  for (let i = 0; i < requiredFields.length; i++) {
+    const field = requiredFields[i];
+    if (!(field in req.body)) {
+      const message = `Missing \`${field}\` in request body`;
+      console.error(message);
+      return res.status(400).send(message);
+    }
+  }
+}); 
 
 // PUT or UPDATE
 
