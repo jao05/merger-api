@@ -85,7 +85,31 @@ router.post("/", jsonParser, (req, res) => {
 
 
 // PUT or UPDATE
+router.put("/", jsonParser, (req, res) => {  
+
+  // we only support a subset of fields being updateable.
+  // if the user sent over any of the updatableFields, we udpate those values
+  // in document
+  const toUpdate = {};
+  const updateableFields = [
+    "openToMerger", 
+    "openToAcquisition", 
+    "openToSell", 
+    "contact"
+  ];
+
+  updateableFields.forEach(field => {
+    if (field in req.body) {
+      toUpdate[field] = req.body[field];
+    }
+  });
+});
 
 // DELETE
+router.delete("/userCompany/:id", (req, res) => {
+  User.findByIdAndRemove(req.params.id)
+    .then(comp => res.status(204).end())
+    .catch(err => res.status(500).json({ message: "Internal server error" }));
+});
 
 module.exports = router;
