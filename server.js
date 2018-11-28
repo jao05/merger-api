@@ -24,7 +24,7 @@ app.use("/userCompany", userCompanyRouter);
 app.use("/expert", expertRouter);
 
 
-
+// Use CORS
 app.use(
     cors({
         origin: CLIENT_ORIGIN
