@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-//const passport = require('passport'); ************
-//const localAuth = passport.authenticate('local', {session: false}); *************
+const passport = require('passport');
+const localAuth = passport.authenticate('local', {session: false});
 
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
@@ -32,12 +32,12 @@ router.get("/", (req, res) => {
 });
 
 // POST WITH AUTHENTICATION
-/************************************************
+
 router.post("/login", localAuth, (req, res) => {
     console.log('login works....');
     res.status(200).json(req.user.serialize());
 });
-**************************************************/
+
 
 // POST
 // POST requests to '/userCompany' endpoint
@@ -50,7 +50,8 @@ router.post("/", jsonParser, (req, res) => {
     "description",
     "openToMerger",
     "openToAcquisition",
-    "openToSell"
+    "openToSell",
+    "password"
   ];
   
   for (let i = 0; i < requiredFields.length; i++) {
@@ -63,24 +64,29 @@ router.post("/", jsonParser, (req, res) => {
   }  
 
   // To hash the password for security
-  /********************************************
-  return User.hashPassword(req.body.password)    
+  
+  return UserCompany.hashPassword(req.body.password)    
     .then(hash => {
-      return User.create({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        username: req.body.username,
+      return UserCompany.create({
+        name: req.body.name,
+        location: req.body.location,
+        industry: req.body.industry,
+        contact: req.body.contact,
+        description: req.body.description,
+        openToMerger: req.body.openToMerger,
+        openToAcquisition: req.body.openToAcquisition,
+        openToSell: req.body.openToSell,
         password: hash        
       });
     })  
-    .then(user => {
-      res.status(201).json(user.serialize());
+    .then(comp => {
+      res.status(201).json(comp.serialize());
     })
     .catch(err => {
       console.error(err);
       res.status(500).json({ message: "Internal server error" });
     });
-    ****************************************************/
+    
 });
 
 

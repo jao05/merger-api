@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+
 
 // const bcrypt = require('bcryptjs');
 
@@ -6,7 +8,7 @@ const mongoose = require("mongoose");
 const userCompanySchema = mongoose.Schema({
   name: { type: String, required: true },
   location: {  
-  	city: String,
+  	city: { type: String, required: true },
   	state: String,
   	country: String
   },  

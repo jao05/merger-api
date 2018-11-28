@@ -10,6 +10,14 @@ const {CLIENT_ORIGIN} = require('./config');
 const userCompanyRouter = require('./userCompanyRouter');
 const expertRouter = require('./expertRouter');
 
+const localStrategy = require('./strategies');
+
+// Import passport
+const passport = require('passport');
+passport.use(localStrategy);
+app.use(passport.initialize()); 
+app.use(passport.session());
+
 // when requests come into `/userCompanyRouter`
 // we'll route them to the express
 // router instance we've imported. Remember,
@@ -21,7 +29,7 @@ app.use("/userCompany", userCompanyRouter);
 // we'll route them to the express
 // router instance we've imported. Remember,
 // this router instance acts as a modular, mini-express app.
-app.use("/expert", expertRouter);
+app.use("/experts", expertRouter);
 
 
 // Use CORS
