@@ -40,6 +40,25 @@ router.post("/", jsonParser, (req, res) => {
 }); 
 
 // PUT or UPDATE
+router.put("/", jsonParser, (req, res) => {  
+
+  // We allow all fields to be updated in this case.
+  // If the user sent over any of the updatableFields, we udpate those values
+  // in document.
+  const toUpdate = {};
+  const updateableFields = [
+    "name", 
+    "type", 
+    "contact", 
+    "location"
+  ];
+
+  updateableFields.forEach(field => {
+    if (field in req.body) {
+      toUpdate[field] = req.body[field];
+    }
+  });
+});
 
 // DELETE
 
