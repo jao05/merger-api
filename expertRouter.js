@@ -61,5 +61,10 @@ router.put("/", jsonParser, (req, res) => {
 });
 
 // DELETE
+router.delete("/expert/:id", (req, res) => {
+  User.findByIdAndRemove(req.params.id)
+    .then(expert => res.status(204).end())
+    .catch(err => res.status(500).json({ message: "Internal server error" }));
+});
 
 module.exports = router;
