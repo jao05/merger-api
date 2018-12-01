@@ -9,8 +9,8 @@ const userCompanySchema = mongoose.Schema({
   name: { type: String, required: true },
   location: {  
   	city: { type: String, required: true },
-  	state: String,
-  	country: String
+  	state: { type: String, required: true },
+  	country: { type: String, required: true }
   },  
   industry: { type: String, required: true },
   contact: {
