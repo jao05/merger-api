@@ -10,8 +10,7 @@ exports.DATABASE_URL =
 
 
 // Use development database url
-exports.TEST_DATABASE_URL =
-  //process.env.TEST_DATABASE_URL || "mongodb://localhost/Negotiator";
+exports.TEST_DATABASE_URL =  
   process.env.TEST_DATABASE_URL || "mongodb://localhost/Merger-test";  
 
 exports.PORT = process.env.PORT || 8000;
