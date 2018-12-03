@@ -146,16 +146,51 @@ describe('Serving userCompany assets', function {
   after(function() {
     return closeServer();
   });
+
+
+  // Test the GET request for the '/userCompany' endpoint
+  describe('the GET endpoint', function() {
+
+  	it('should return companies that meet specific criteria', function() {
+
+  		// strategy:
+        //    1. get back all companies returned by GET request to `/userCompany`
+        //    2. prove the res has the right status & data type
+        //    3. prove the number of companies we got back is equal to number
+        //       in db.
+        //
+        // We need to have access to mutate and access `res` across
+        // `.then()` calls below, so declare it here so we can modify in place
+        let res;
+
+        return chai.request(app)
+          .get('/userCompany?industry=Health&openToMerger=true')          
+          .then(function(_res) {
+            // so subsequent .then blocks can access response object
+            res = _res;
+            expect(res).to.have.status(200);                      
+            expect(res.body.companies).to.have.lengthOf.at.least(1);  // otherwise our db seeding didn't work
+          })  
+  	});
+
+
+  	it('should return companies with the correct fields', function() {
+  		
+  	});
+  });
+
+  // Test the POST request for the '/userCompany' endpoint
+  describe('the POST endpoint', function() {
+  	
+  });
+
+  // Test the PUT request for the '/userCompany' endpoint
+  describe('the PUT endpoint', function() {
+  	
+  });
+
+  // Test the DELETE request for the '/userCompany' endpoint
+  describe('the DELETE endpoint', function() {
+  	
+  });
 });
-
-
-// Test the GET request for the '/userCompany' endpoint
-
-
-// Test the POST request for the '/userCompany' endpoint
-
-
-// Test the PUT request for the '/userCompany' endpoint
-
-
-// Test the DELETE request for the '/userCompany' endpoint

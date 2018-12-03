@@ -130,16 +130,16 @@ describe('Serving expert assets', function {
   after(function() {
     return closeServer();
   });
+
+
+  // Test the GET request for the '/expert' endpoint
+
+
+  // Test the POST request for the '/expert' endpoint
+
+
+  // Test the PUT request for the '/expert' endpoint
+
+
+  // Test the DELETE request for the '/expert' endpoint
 });
-
-
-// Test the GET request for the '/expert' endpoint
-
-
-// Test the POST request for the '/expert' endpoint
-
-
-// Test the PUT request for the '/expert' endpoint
-
-
-// Test the DELETE request for the '/expert' endpoint
