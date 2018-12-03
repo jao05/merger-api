@@ -101,7 +101,7 @@ function seedExpertData(){
   return Expert.create(seededExpertCompanies);
 }
 
-describe('Serving expert assets', function {
+describe('Serving expert assets', function() {
 	
   // Before our tests run, we activate the server. Our `runServer`
   // function returns a promise, and we return the promise by
@@ -133,7 +133,7 @@ describe('Serving expert assets', function {
 
 
   // Test the GET request for the '/expert' endpoint
-  describe('the GET endpoint', function {
+  describe('the GET endpoint', function(){
 
   	it('should return experts that meet specific criteria', function() {
 

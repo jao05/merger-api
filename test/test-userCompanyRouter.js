@@ -117,7 +117,7 @@ function seedUserCompanyData(){
   return UserCompany.create(seededUserCompanies);
 }
 
-describe('Serving userCompany assets', function {
+describe('Serving userCompany assets', function() {
 
   // Before our tests run, we activate the server. Our `runServer`
   // function returns a promise, and we return the promise by
