@@ -176,7 +176,46 @@ describe('Serving userCompany assets', function {
 
   	it('should return companies with the correct fields', function() {
   		
-  	});
+  		// Strategy: Get back all negotiators, and ensure they have expected keys
+
+        let resCompany;
+        return chai.request(app)
+          .get('/userCompany?industry=Health&openToMerger=true')
+          .then(function(res) {
+            expect(res).to.have.status(200);
+            expect(res).to.be.json;            
+            expect(res.body.companies).to.be.a('array');
+            expect(res.body.companies).to.have.lengthOf.at.least(1);
+
+            res.body.companies.forEach(function(company) {
+              expect(company).to.be.a('object');
+              expect(company).to.include.keys(
+                'name', 
+                'location', 
+                'industry', 
+                'contact',
+                'description',
+                'openToMerger',
+                'openToAcquisition',
+                'openToSell'
+              );
+            }); 
+            
+            resCompany = res.body.companies[0];
+            return Negotiator.findById(resCompany.id);           
+           })
+          .then(function(comp) {
+            
+            expect(resCompany.name).to.equal(comp.name);
+            expect(resCompany.location).to.equal(comp.location);
+            expect(resCompany.industry).to.equal(comp.industry);
+            expect(resCompany.contact).to.equal(comp.contact);
+            expect(resCompany.description).to.equal(comp.description);
+            expect(resCompany.openToMerger).to.equal(comp.openToMerger);
+            expect(resCompany.openToAcquisition).to.equal(comp.openToAcquisition);
+            expect(resCompany.openToSell).to.equal(comp.openToSell);            
+          });
+  	});	
   });
 
   // Test the POST request for the '/userCompany' endpoint
