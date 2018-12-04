@@ -99,7 +99,6 @@ function seedExpertData(){
   
 
   return Expert.create(seededExpertCompanies);
-  console.log('SEEDED DATABASE!');
 }
 
 describe('Serving expert assets', function() {
@@ -149,7 +148,7 @@ describe('Serving expert assets', function() {
         let res;
 
         return chai.request(app)
-          .get('/expert')          
+          .get('/experts?type=Legal')          
           .then(function(_res) {
             // so subsequent .then blocks can access response object
             res = _res;
@@ -164,7 +163,7 @@ describe('Serving expert assets', function() {
 
         let resExpert;
         return chai.request(app)
-          .get('/expert?type=Legal')
+          .get('/experts?type=Legal')
           .then(function(res) {
             expect(res).to.have.status(200);
             expect(res).to.be.json;            
