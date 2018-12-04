@@ -221,7 +221,74 @@ describe('Serving userCompany assets', function() {
 
   // Test the POST request for the '/userCompany' endpoint
   describe('the POST endpoint', function() {
-  	
+  	// strategy: make a POST request with data,
+    // then prove that the company we get back has
+    // right keys, and that `id` is there (which means
+    // the data was inserted into db)
+    it('should add a new user company', function() {
+
+      const newUserCompany = {
+        name: "sampleName",
+        location: {  
+          city: "sampleCity",
+          state: "sampleState",
+          country: "sampleCountry"
+        },  
+        industry: "sampleIndustry",
+        contact: {
+          firstName: "sampleFirstName",
+          lastName: "sampleLastName",
+          email: "sampleEmail"
+        },
+        description: "sampleDescription",
+        openToMerger: true,
+        openToAcquisition: true,
+        openToSell: true,
+        password: "password"
+      }
+
+      return chai.request(app)
+        .post('/userCompany')
+        .send(newUserCompany)
+        .then(function(res) {
+          expect(res).to.have.status(201);
+          expect(res).to.be.json;
+          expect(res.body).to.be.a('object');
+          expect(res.body).to.include.keys(
+            'name', 
+            'location', 
+            'industry', 
+            'contact',
+            'description',
+            'openToMerger',
+            'openToAcquisition',
+            'openToSell'
+          ); 
+          
+          expect(res.body.name).to.equal(newUserCompany.name);
+          // because Mongo should have created id on insertion
+          expect(res.body.id).to.not.be.null;
+          expect(res.body.location).to.equal(newUserCompany.location);
+          expect(res.body.industry).to.equal(newUserCompany.industry);
+          expect(res.body.contact).to.equal(newUserCompany.contact);
+          expect(res.body.description).to.equal(newUserCompany.description);
+          expect(res.body.openToMerger).to.equal(newUserCompany.openToMerger);
+          expect(res.body.openToAcquisition).to.equal(newUserCompany.openToAcquisition);
+          expect(res.body.openToSell).to.equal(newUserCompany.openToSell);
+
+          return UserCompany.findById(res.body.id);                   
+        })
+        .then(function(comp) {
+          expect(comp.name).to.equal(newUserCompany.name);
+          expect(comp.location).to.equal(newUserCompany.location);
+          expect(comp.industry).to.equal(newUserCompany.industry);
+          expect(comp.contact).to.equal(newUserCompany.contact);
+          expect(comp.description).to.equal(newUserCompany.description);
+          expect(comp.openToMerger).to.equal(newUserCompany.openToMerger);
+          expect(comp.openToAcquisition).to.equal(newUserCompany.openToAcquisition);
+          expect(comp.openToSell).to.equal(newUserCompany.openToSell);          
+        });
+      });
   });
 
   // Test the PUT request for the '/userCompany' endpoint
