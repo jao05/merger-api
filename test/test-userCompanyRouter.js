@@ -344,7 +344,7 @@ describe('Serving userCompany assets', function() {
       return UserCompany
         .findOne()
         .then(function(_currentUserCompany) {
-          currentNegotiator = _currentUserCompany;
+          currentUserCompany = _currentUserCompany;
           return chai.request(app).delete(`/userCompany/${currentUserCompany.id}`);
         })
         .then(function(res) {

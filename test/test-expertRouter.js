@@ -305,5 +305,28 @@ describe('Serving expert assets', function() {
   // Test the DELETE request for the '/expert' endpoint
   describe('the DELETE endpoint', function() {
     
+    // strategy:
+    //  1. get a expert
+    //  2. make a DELETE request for that expert's id
+    //  3. assert that response has right status code
+    //  4. prove that expert with the id doesn't exist in db anymore
+    it('delete a expert by id', function() {
+
+      let currentExpert;
+
+      return Expert
+        .findOne()
+        .then(function(_currentExpert) {
+          currentExpert = _currentExpert;
+          return chai.request(app).delete(`/experts/${currentExpert.id}`);
+        })
+        .then(function(res) {
+          expect(res).to.have.status(204);
+          return Expert.findById(currentExpert.id);
+        })
+        .then(function(_currentExpert) {
+          expect(_currentExpert).to.be.null;
+        });
+    });
   });
 });
