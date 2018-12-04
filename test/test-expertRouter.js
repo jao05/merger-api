@@ -195,6 +195,60 @@ describe('Serving expert assets', function() {
 
 
   // Test the POST request for the '/expert' endpoint
+  describe('the POST endpoint', function() {
+    // strategy: make a POST request with data,
+    // then prove that the expert we get back has
+    // right keys, and that `id` is there (which means
+    // the data was inserted into db)
+    it('should add a new expert', function() {
+
+      const newExpert = {
+        type: "sampleType",
+        name: "sampleName",
+        contact: {
+          firstName: "sampleFirstName",
+          lastName: "sampleLastName",
+          email: "sampleEmail"
+        },
+        location: {
+
+          city: "sampleCity",
+          state: "sampleState",
+          country: "sampleCountry"
+        }
+      }
+
+      return chai.request(app)
+        .post('/experts')
+        .send(newExpert)
+        .then(function(res) {
+          expect(res).to.have.status(201);
+          expect(res).to.be.json;
+          expect(res.body).to.be.a('object');
+          expect(res.body).to.include.keys(
+            'type',
+            'name', 
+            'contact',
+            'location'            
+          ); 
+          
+          expect(res.body.type).to.equal(newExpert.type);
+          expect(res.body.name).to.equal(newExpert.name);
+          // because Mongo should have created id on insertion
+          expect(res.body.id).to.not.be.null;
+          expect(res.body.contact).to.equal(newExpert.contact);          
+          expect(res.body.location).to.equal(newExpert.location);          
+
+          return Expert.findById(res.body.id);                   
+        })
+        .then(function(expert) {
+          expect(expert.type).to.equal(newExpert.type);
+          expect(expert.name).to.equal(newExpert.name);
+          expect(expert.contact).to.equal(newExpert.contact);          
+          expect(expert.location).to.equal(newExpert.location);          
+        });
+      });
+  });
 
 
   // Test the PUT request for the '/expert' endpoint
