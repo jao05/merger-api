@@ -294,6 +294,39 @@ describe('Serving userCompany assets', function() {
   // Test the PUT request for the '/userCompany' endpoint
   describe('the PUT endpoint', function() {
   	
+    // strategy:
+    //  1. Get an existing negotiator from db
+    //  2. Make a PUT request to update that negotiator
+    //  3. Prove negotiator returned by request contains data we sent
+    //  4. Prove negotiator in db is correctly updated
+    it('should update fields you send over', function() {
+      const updateData = {
+        openToMerger: false,
+        openToSell: true
+      };
+
+      return UserCompany
+        .findOne()
+        .then(function(comp) {
+          updateData.id = comp.id;
+
+          // make request then inspect it to make sure it reflects
+          // data we sent
+          return chai.request(app)
+            .put(`/userCompany/${comp.id}`)
+            .send(updateData);
+        })
+        .then(function(res) {
+          expect(res).to.have.status(201);
+          expect(res.body).to.be.a('object');
+
+          return UserCompany.findById(updateData.id);
+        })
+        .then(function(comp) {
+          expect(comp.openToMerger).to.equal(updateData.openToMerger);
+          expect(comp.openToSell).to.equal(updateData.openToSell);
+        });
+    })
   });
 
   // Test the DELETE request for the '/userCompany' endpoint
