@@ -190,6 +190,7 @@ describe('Serving userCompany assets', function() {
             res.body.companies.forEach(function(company) {
               expect(company).to.be.a('object');
               expect(company).to.include.keys(
+                'id',
                 'name', 
                 'location', 
                 'industry', 
