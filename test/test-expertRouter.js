@@ -191,9 +191,7 @@ describe('Serving expert assets', function() {
             expect(resExpert.location).to.equal(expertComp.location);           
           });
     });	
-  });
-
-  
+  });  
 
 
   // Test the POST request for the '/expert' endpoint

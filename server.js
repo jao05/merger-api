@@ -6,9 +6,15 @@ const {PORT, DATABASE_URL} = require('./config');
 const cors = require('cors');
 const {CLIENT_ORIGIN} = require('./config');
 
+// To log the HTTP layer
+const morgan = require('morgan');
+
 // Import the router files
 const userCompanyRouter = require('./userCompanyRouter');
 const expertRouter = require('./expertRouter');
+
+// Use morgan with the common format
+app.use(morgan('common'));
 
 const localStrategy = require('./strategies');
 
