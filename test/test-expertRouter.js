@@ -252,7 +252,58 @@ describe('Serving expert assets', function() {
 
 
   // Test the PUT request for the '/expert' endpoint
+  describe('the PUT endpoint', function() {
+    
+    // strategy:
+    //  1. Get an existing expert from db
+    //  2. Make a PUT request to update that expert
+    //  3. Prove expert returned by request contains data we sent
+    //  4. Prove expert in db is correctly updated
+    it('should update fields you send over', function() {
+      const updateData = {
+        name: "updatedName",
+        type: "updatedType",
+        contact: {
+          firstName: "updatedFirstName",
+          lastName: "updatedLastName",
+          email: "updatedEmail"
+        },
+        location: {
+          city: "updatedCity",
+          state: "updatedState",
+          country: "updatedCountry"
+        }
+      };
+
+      return Expert
+        .findOne()
+        .then(function(expert) {
+          updateData.id = expert.id;
+
+          // make request then inspect it to make sure it reflects
+          // data we sent
+          return chai.request(app)
+            .put(`/experts/${expert.id}`)
+            .send(updateData);
+        })
+        .then(function(res) {
+          expect(res).to.have.status(201);
+          expect(res.body).to.be.a('object');
+
+          return Expert.findById(updateData.id);
+        })
+        .then(function(expert) {
+          expect(expert.name).to.equal(updateData.name);
+          expect(expert.type).to.equal(updateData.type);
+          expect(expert.contact).to.equal(updateData.contact);
+          expect(expert.location).to.equal(updateData.location);
+        });
+    })
+  });
 
 
   // Test the DELETE request for the '/expert' endpoint
+  describe('the DELETE endpoint', function() {
+    
+  });
 });

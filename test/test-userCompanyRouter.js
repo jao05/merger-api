@@ -295,10 +295,10 @@ describe('Serving userCompany assets', function() {
   describe('the PUT endpoint', function() {
   	
     // strategy:
-    //  1. Get an existing negotiator from db
-    //  2. Make a PUT request to update that negotiator
-    //  3. Prove negotiator returned by request contains data we sent
-    //  4. Prove negotiator in db is correctly updated
+    //  1. Get an existing company from db
+    //  2. Make a PUT request to update that company
+    //  3. Prove company returned by request contains data we sent
+    //  4. Prove company in db is correctly updated
     it('should update fields you send over', function() {
       const updateData = {
         openToMerger: false,
