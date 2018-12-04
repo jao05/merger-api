@@ -37,68 +37,69 @@ function seedExpertData(){
   const seededExpertCompanies = [
       {
         type: "Legal",
-		name: "Lawyer Inc.",
-		contact: {
-			firstName: "Larry",
-			lastName: "Law",
-			email: "larry@law.com"
-		},
-		location: {
+		    name: "Lawyer Inc.",
+		    contact: {
+			   firstName: "Larry",
+			   lastName: "Law",
+			   email: "larry@law.com"
+		    },
+		    location: {
 
-			city: "New York",
-			state: "NY",
-			country: "United States"
-		}
+			   city: "New York",
+			   state: "NY",
+			   country: "United States"
+		    }
       },
       {
         type: "Financial",
-		name: "IB Inc.",
-		contact: {
-			firstName: "Billy",
-			lastName: "Banker",
-			email: "billy@banker.com"
-		},
-		location: {
+		    name: "IB Inc.",
+		    contact: {
+			   firstName: "Billy",
+			   lastName: "Banker",
+			   email: "billy@banker.com"
+		    },
+		    location: {
 
-			city: "New York",
-			state: "NY",
-			country: "United States"
-		}
+			   city: "New York",
+			   state: "NY",
+			   country: "United States"
+		    }
       },
       {
         type: "Financial",
-		name: "Big Bank Inc.",
-		contact: {
-			firstName: "Brandon",
-			lastName: "Banks",
-			email: "brandon@bigbank.com"
-		},
-		location: {
+		    name: "Big Bank Inc.",
+		    contact: {
+			   firstName: "Brandon",
+			   lastName: "Banks",
+			   email: "brandon@bigbank.com"
+		    },
+		    location: {
 
-			city: "New York",
-			state: "NY",
-			country: "United States"
-		}
+			   city: "New York",
+			   state: "NY",
+			   country: "United States"
+		    }
       },
       {
         type: "Legal",
-		name: "Business Law Inc.",
-		contact: {
-			firstName: "Jerry",
-			lastName: "Juris",
-			email: "jerry@bl.com"
-		},
-		location: {
+    		name: "Business Law Inc.",
+    		contact: {
+    			firstName: "Jerry",
+    			lastName: "Juris",
+    			email: "jerry@bl.com"
+		    },
+		    location: {
 
-			city: "Boston",
-			state: "MA",
-			country: "United States"
-		}
+    			city: "Boston",
+    			state: "MA",
+    			country: "United States"
+		    }
       }
     ]
   
 
   return Expert.create(seededExpertCompanies);
+  console.log('SEEDED DATABASE!');
 }
 
 describe('Serving expert assets', function() {
@@ -148,7 +149,7 @@ describe('Serving expert assets', function() {
         let res;
 
         return chai.request(app)
-          .get('/expert?type=Legal')          
+          .get('/expert')          
           .then(function(_res) {
             // so subsequent .then blocks can access response object
             res = _res;
