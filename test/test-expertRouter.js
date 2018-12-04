@@ -181,7 +181,7 @@ describe('Serving expert assets', function() {
             }); 
             
             resExpert = res.body.expertCompanies[0];
-            return Negotiator.findById(resExpert.id);           
+            return Expert.findById(resExpert.id);           
            })
           .then(function(expertComp) {
             
