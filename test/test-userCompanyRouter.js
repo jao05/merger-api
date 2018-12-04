@@ -332,5 +332,28 @@ describe('Serving userCompany assets', function() {
   // Test the DELETE request for the '/userCompany' endpoint
   describe('the DELETE endpoint', function() {
   	
+    // strategy:
+    //  1. get a company
+    //  2. make a DELETE request for that company's id
+    //  3. assert that response has right status code
+    //  4. prove that company with the id doesn't exist in db anymore
+    it('delete a company by id', function() {
+
+      let currentUserCompany;
+
+      return UserCompany
+        .findOne()
+        .then(function(_currentUserCompany) {
+          currentNegotiator = _currentUserCompany;
+          return chai.request(app).delete(`/userCompany/${currentUserCompany.id}`);
+        })
+        .then(function(res) {
+          expect(res).to.have.status(204);
+          return UserCompany.findById(currentUserCompany.id);
+        })
+        .then(function(_currentUserCompany) {
+          expect(_currentUserCompany).to.be.null;
+        });
+    });
   });
 });
