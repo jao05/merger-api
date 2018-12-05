@@ -240,14 +240,14 @@ describe('Serving expert assets', function() {
           expect(res.body.contact).to.equal(newExpert.contact);          
           expect(res.body.location).to.equal(newExpert.location);          
 
-          return Expert.findById(res.body.id)
-          .then(function(expert) {
+          return Expert.findById(res.body.id);                       
+        })
+        .then(function(expert) {
             expect(expert.type).to.equal(newExpert.type);
             expect(expert.name).to.equal(newExpert.name);
             expect(expert.contact).to.equal(newExpert.contact);          
             expect(expert.location).to.equal(newExpert.location);          
-          });             
-        })        
+        });
       });
   });
 
