@@ -181,11 +181,12 @@ describe('Serving expert assets', function() {
             }); 
             
             resExpert = res.body.expertCompanies[0];
-            return Expert.findById(resExpert.id);           
+            console.log(resExpert);
+            return Expert.findById(resExpert._id); // ***no serialize funtion so use mongoose id convention**          
            })
           .then(function(expertComp) {
             
-            expect(resExpert.type).to.equal(expertComp.type);
+            expect(resExpert.type).to.equal(expertComp.type); // ****expertComp is undefined****
             expect(resExpert.name).to.equal(expertComp.name);
             expect(resExpert.contact).to.equal(expertComp.contact);            
             expect(resExpert.location).to.equal(expertComp.location);           
@@ -239,14 +240,14 @@ describe('Serving expert assets', function() {
           expect(res.body.contact).to.equal(newExpert.contact);          
           expect(res.body.location).to.equal(newExpert.location);          
 
-          return Expert.findById(res.body.id);                   
-        })
-        .then(function(expert) {
-          expect(expert.type).to.equal(newExpert.type);
-          expect(expert.name).to.equal(newExpert.name);
-          expect(expert.contact).to.equal(newExpert.contact);          
-          expect(expert.location).to.equal(newExpert.location);          
-        });
+          return Expert.findById(res.body.id)
+          .then(function(expert) {
+            expect(expert.type).to.equal(newExpert.type);
+            expect(expert.name).to.equal(newExpert.name);
+            expect(expert.contact).to.equal(newExpert.contact);          
+            expect(expert.location).to.equal(newExpert.location);          
+          });             
+        })        
       });
   });
 

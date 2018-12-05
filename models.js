@@ -65,6 +65,17 @@ const expertSchema = mongoose.Schema({
 	}
 });
 
+// Serialize the expert model
+expertSchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    type: this.type,
+    name: this.name,
+    contact: this.contact,
+    location: this.location
+  };
+};
+
 // note that all instance methods and virtual properties on our
 // schema must be defined *before* we make the call to `.model`.
 const Expert = mongoose.model("Expert", expertSchema);
