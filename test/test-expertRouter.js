@@ -182,7 +182,7 @@ describe('Serving expert assets', function() {
             
             resExpert = res.body.expertCompanies[0];
             console.log(resExpert);
-            return Expert.findById(resExpert._id); // ***no serialize funtion so use mongoose id convention**          
+            return Expert.findById(resExpert.id); 
            })
           .then(function(expertComp) {
             

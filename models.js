@@ -33,7 +33,10 @@ userCompanySchema.methods.serialize = function() {
     location: this.location,
     industry: this.industry,
     contact: this.contact,
-    description: this.description
+    description: this.description,
+    openToMerger: this.openToMerger,
+    openToAcquisition: this.openToAcquisition,
+    openToSell: this.openToSell
   };
 };
 
