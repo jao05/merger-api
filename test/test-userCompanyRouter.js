@@ -255,6 +255,7 @@ describe('Serving userCompany assets', function() {
           expect(res).to.be.json;
           expect(res.body).to.be.a('object');
           expect(res.body).to.include.keys(
+            'id',
             'name', 
             'location', 
             'industry', 
