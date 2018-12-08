@@ -32,7 +32,7 @@ router.get("/", (req, res) => {
 });
 
 // POST WITH AUTHENTICATION
-// This is a user login after they have already signed up (initial POST)?*********************
+// ************** This is a user login after they have already signed up (initial POST)?*********************
 router.post("/login", localAuth, (req, res) => {
     console.log('login works....');
     res.status(200).json(req.user.serialize()); 

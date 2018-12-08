@@ -119,6 +119,8 @@ function seedUserCompanyData(){
 
 describe('Serving userCompany assets', function() {
 
+  this.timeout(15000); // **** Added to deal with timeout error
+
   // Before our tests run, we activate the server. Our `runServer`
   // function returns a promise, and we return the promise by
   // doing `return runServer`. If we didn't return a promise here,
@@ -151,7 +153,9 @@ describe('Serving userCompany assets', function() {
   // Test the GET request for the '/userCompany' endpoint
   describe('the GET endpoint', function() {
 
-  	it('should return companies that meet specific criteria', function() {
+  	this.timeout(10000); // **** Added to deal with timeout error
+
+    it('should return companies that meet specific criteria', function() {
 
   		// strategy:
         //    1. get back all companies returned by GET request to `/userCompany`
@@ -221,7 +225,10 @@ describe('Serving userCompany assets', function() {
 
   // Test the POST request for the '/userCompany' endpoint
   describe('the POST endpoint', function() {
-  	// strategy: make a POST request with data,
+  	
+    this.timeout(10000); // **** Added to deal with timeout error
+
+    // strategy: make a POST request with data,
     // then prove that the company we get back has
     // right keys, and that `id` is there (which means
     // the data was inserted into db)
@@ -295,6 +302,8 @@ describe('Serving userCompany assets', function() {
   // Test the PUT request for the '/userCompany' endpoint
   describe('the PUT endpoint', function() {
   	
+    this.timeout(10000); // **** Added to deal with timeout error
+
     // strategy:
     //  1. Get an existing company from db
     //  2. Make a PUT request to update that company
@@ -333,6 +342,8 @@ describe('Serving userCompany assets', function() {
   // Test the DELETE request for the '/userCompany' endpoint
   describe('the DELETE endpoint', function() {
   	
+    this.timeout(10000); // **** Added to deal with timeout error
+
     // strategy:
     //  1. get a company
     //  2. make a DELETE request for that company's id

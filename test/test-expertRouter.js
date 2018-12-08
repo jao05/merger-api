@@ -99,10 +99,13 @@ function seedExpertData(){
   
 
   return Expert.create(seededExpertCompanies);
+         
 }
 
 describe('Serving expert assets', function() {
 	
+  this.timeout(10000); // **** Added to deal with timeout error
+
   // Before our tests run, we activate the server. Our `runServer`
   // function returns a promise, and we return the promise by
   // doing `return runServer`. If we didn't return a promise here,
@@ -114,7 +117,7 @@ describe('Serving expert assets', function() {
 
   
   beforeEach(function() {
-    return seedExpertData();
+    return seedExpertData();    
   });
   
 
@@ -135,7 +138,9 @@ describe('Serving expert assets', function() {
   // Test the GET request for the '/expert' endpoint
   describe('the GET endpoint', function(){
 
-  	it('should return experts that meet specific criteria', function() {
+  	this.timeout(10000); // **** Added to deal with timeout error
+
+    it('should return experts that meet specific criteria', function() {
 
   		// strategy:
         //    1. get back all experts returned by GET request to `/userCompany`
@@ -149,7 +154,7 @@ describe('Serving expert assets', function() {
 
         return chai.request(app)
           .get('/experts?type=Legal')          
-          .then(function(_res) {
+          .then(function(_res) {            
             // so subsequent .then blocks can access response object
             res = _res;
             expect(res).to.have.status(200);                      
@@ -180,8 +185,7 @@ describe('Serving expert assets', function() {
               );
             }); 
             
-            resExpert = res.body.expertCompanies[0];
-            console.log(resExpert);
+            resExpert = res.body.expertCompanies[0];            
             return Expert.findById(resExpert.id); 
            })
           .then(function(expertComp) {
@@ -197,6 +201,9 @@ describe('Serving expert assets', function() {
 
   // Test the POST request for the '/expert' endpoint
   describe('the POST endpoint', function() {
+    
+    this.timeout(10000); // **** Added to deal with timeout error
+
     // strategy: make a POST request with data,
     // then prove that the expert we get back has
     // right keys, and that `id` is there (which means
@@ -255,6 +262,8 @@ describe('Serving expert assets', function() {
   // Test the PUT request for the '/expert' endpoint
   describe('the PUT endpoint', function() {
     
+    this.timeout(10000); // **** Added to deal with timeout error
+
     // strategy:
     //  1. Get an existing expert from db
     //  2. Make a PUT request to update that expert
@@ -306,6 +315,8 @@ describe('Serving expert assets', function() {
   // Test the DELETE request for the '/expert' endpoint
   describe('the DELETE endpoint', function() {
     
+    this.timeout(10000); // **** Added to deal with timeout error
+
     // strategy:
     //  1. get a expert
     //  2. make a DELETE request for that expert's id

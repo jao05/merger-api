@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
   Expert.find()
 
   	// Return all experts in the db
-    .then(experts => {
+    .then(experts => {      
       res.json({
         expertCompanies: experts
       });
