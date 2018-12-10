@@ -6,9 +6,23 @@ const {PORT, DATABASE_URL} = require('./config');
 const cors = require('cors');
 const {CLIENT_ORIGIN} = require('./config');
 
+// To log the HTTP layer
+const morgan = require('morgan');
+
 // Import the router files
 const userCompanyRouter = require('./userCompanyRouter');
 const expertRouter = require('./expertRouter');
+
+// Use morgan with the common format
+app.use(morgan('common'));
+
+const localStrategy = require('./strategies');
+
+// Import passport
+const passport = require('passport');
+passport.use(localStrategy);
+app.use(passport.initialize()); 
+app.use(passport.session());
 
 // when requests come into `/userCompanyRouter`
 // we'll route them to the express
@@ -21,10 +35,10 @@ app.use("/userCompany", userCompanyRouter);
 // we'll route them to the express
 // router instance we've imported. Remember,
 // this router instance acts as a modular, mini-express app.
-app.use("/expert", expertRouter);
+app.use("/experts", expertRouter);
 
 
-
+// Use CORS
 app.use(
     cors({
         origin: CLIENT_ORIGIN

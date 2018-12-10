@@ -1,26 +1,26 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
-// const bcrypt = require('bcryptjs');
 
 // this is our schema to represent a user company
 const userCompanySchema = mongoose.Schema({
   name: { type: String, required: true },
   location: {  
-  	city: String,
-  	state: String,
-  	country: String
+  	city: { type: String, required: true },
+  	state: { type: String, required: true },
+  	country: { type: String, required: true }
   },  
   industry: { type: String, required: true },
   contact: {
-  	firstName: String,
-  	lastName: String,
-  	email: String
+  	firstName: { type: String, required: true },
+  	lastName: { type: String, required: true },
+  	email: { type: String, required: true }
   },
-  description: String,
-  openToMerger: Boolean,
-  openToAcquisition: Boolean,
-  openToSell: Boolean,
-  password: String
+  description: { type: String, required: true },
+  openToMerger: { type: Boolean, required: true },
+  openToAcquisition: { type: Boolean, required: true },
+  openToSell: { type: Boolean, required: true },
+  password: { type: String, required: true }
 
 });
 
@@ -30,10 +30,14 @@ const userCompanySchema = mongoose.Schema({
 userCompanySchema.methods.serialize = function() {
   return {
     id: this._id,
+    name: this.name,
     location: this.location,
     industry: this.industry,
     contact: this.contact,
-    description: this.description
+    description: this.description,
+    openToMerger: this.openToMerger,
+    openToAcquisition: this.openToAcquisition,
+    openToSell: this.openToSell
   };
 };
 
@@ -64,6 +68,17 @@ const expertSchema = mongoose.Schema({
 		country: String
 	}
 });
+
+// Serialize the expert model
+expertSchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    type: this.type,
+    name: this.name,
+    contact: this.contact,
+    location: this.location
+  };
+};
 
 // note that all instance methods and virtual properties on our
 // schema must be defined *before* we make the call to `.model`.
