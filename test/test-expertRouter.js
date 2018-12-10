@@ -4,6 +4,7 @@ const chai = require('chai');
 // For mock HTTP requests for our tests
 const chaiHttp = require('chai-http');
 
+// To use with comparisons in testing
 chai.use(require('chai-shallow-deep-equal'));
 
 // To use mongo db capabilities
