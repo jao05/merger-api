@@ -104,7 +104,7 @@ function seedExpertData(){
 
 describe('Serving expert assets', function() {
 	
-  this.timeout(10000); // **** Added to deal with timeout error
+  this.timeout(15000); // **** Added to deal with timeout error
 
   // Before our tests run, we activate the server. Our `runServer`
   // function returns a promise, and we return the promise by
@@ -186,10 +186,11 @@ describe('Serving expert assets', function() {
             }); 
             
             resExpert = res.body.expertCompanies[0];            
-            return Expert.findById(resExpert.id); 
+            console.log('AN EXPERTCOMP IS ', resExpert); // **********************************
+            return Expert.findById(resExpert.id); // **** THE PROBLEM IS HERE, diff btw 'id' & '_id' ***********
            })
           .then(function(expertComp) {
-            
+            console.log('****EXPERTCOMP IS ', expertComp); // **************************
             expect(resExpert.type).to.equal(expertComp.type); // ****expertComp is undefined****
             expect(resExpert.name).to.equal(expertComp.name);
             expect(resExpert.contact).to.equal(expertComp.contact);            
@@ -199,6 +200,7 @@ describe('Serving expert assets', function() {
   });  
 
 
+  // Try console logs*********************************************
   // Test the POST request for the '/expert' endpoint
   describe('the POST endpoint', function() {
     

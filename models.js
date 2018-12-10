@@ -30,6 +30,7 @@ const userCompanySchema = mongoose.Schema({
 userCompanySchema.methods.serialize = function() {
   return {
     id: this._id,
+    name: this.name,
     location: this.location,
     industry: this.industry,
     contact: this.contact,
