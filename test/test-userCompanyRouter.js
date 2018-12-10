@@ -4,6 +4,9 @@ const chai = require('chai');
 // For mock HTTP requests for our tests
 const chaiHttp = require('chai-http');
 
+// To use with comparisons in testing
+chai.use(require('chai-shallow-deep-equal'));
+
 // To use mongo db capabilities
 const mongoose = require('mongoose');
 
@@ -212,9 +215,13 @@ describe('Serving userCompany assets', function() {
           .then(function(comp) {
             
             expect(resCompany.name).to.equal(comp.name);
-            expect(resCompany.location).to.deep.equal(comp.location);
+            expect(resCompany.location.city).to.shallowDeepEqual(comp.location.city);
+            expect(resCompany.location.state).to.shallowDeepEqual(comp.location.state);
+            expect(resCompany.location.country).to.shallowDeepEqual(comp.location.country);
             expect(resCompany.industry).to.equal(comp.industry);
-            expect(resCompany.contact).to.deep.equal(comp.contact);
+            expect(resCompany.contact.firstName).to.shallowDeepEqual(comp.contact.firstName);
+            expect(resCompany.contact.lastName).to.shallowDeepEqual(comp.contact.lastName);
+            expect(resCompany.contact.email).to.shallowDeepEqual(comp.contact.email);
             expect(resCompany.description).to.equal(comp.description);
             expect(resCompany.openToMerger).to.equal(comp.openToMerger);
             expect(resCompany.openToAcquisition).to.equal(comp.openToAcquisition);
@@ -288,9 +295,13 @@ describe('Serving userCompany assets', function() {
         })
         .then(function(comp) {
           expect(comp.name).to.equal(newUserCompany.name);
-          expect(comp.location).to.deep.equal(newUserCompany.location); 
+          expect(comp.location.city).to.shallowDeepEqual(newUserCompany.location.city);
+          expect(comp.location.state).to.shallowDeepEqual(newUserCompany.location.state);
+          expect(comp.location.country).to.shallowDeepEqual(newUserCompany.location.country);
           expect(comp.industry).to.equal(newUserCompany.industry);
-          expect(comp.contact).to.deep.equal(newUserCompany.contact);
+          expect(comp.contact.firstName).to.deep.equal(newUserCompany.contact.firstName);
+          expect(comp.contact.lastName).to.deep.equal(newUserCompany.contact.lastName);
+          expect(comp.contact.email).to.deep.equal(newUserCompany.contact.email);
           expect(comp.description).to.equal(newUserCompany.description);
           expect(comp.openToMerger).to.equal(newUserCompany.openToMerger);
           expect(comp.openToAcquisition).to.equal(newUserCompany.openToAcquisition);
