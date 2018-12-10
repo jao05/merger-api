@@ -207,14 +207,14 @@ describe('Serving userCompany assets', function() {
             }); 
             
             resCompany = res.body.companies[0];
-            return Negotiator.findById(resCompany.id);           
+            return UserCompany.findById(resCompany.id);           
            })
           .then(function(comp) {
             
             expect(resCompany.name).to.equal(comp.name);
-            expect(resCompany.location).to.equal(comp.location);
+            expect(resCompany.location).to.deep.equal(comp.location);
             expect(resCompany.industry).to.equal(comp.industry);
-            expect(resCompany.contact).to.equal(comp.contact);
+            expect(resCompany.contact).to.deep.equal(comp.contact);
             expect(resCompany.description).to.equal(comp.description);
             expect(resCompany.openToMerger).to.equal(comp.openToMerger);
             expect(resCompany.openToAcquisition).to.equal(comp.openToAcquisition);
@@ -276,9 +276,9 @@ describe('Serving userCompany assets', function() {
           expect(res.body.name).to.equal(newUserCompany.name);
           // because Mongo should have created id on insertion
           expect(res.body.id).to.not.be.null;
-          expect(res.body.location).to.equal(newUserCompany.location);
+          expect(res.body.location).to.deep.equal(newUserCompany.location);
           expect(res.body.industry).to.equal(newUserCompany.industry);
-          expect(res.body.contact).to.equal(newUserCompany.contact);
+          expect(res.body.contact).to.deep.equal(newUserCompany.contact);
           expect(res.body.description).to.equal(newUserCompany.description);
           expect(res.body.openToMerger).to.equal(newUserCompany.openToMerger);
           expect(res.body.openToAcquisition).to.equal(newUserCompany.openToAcquisition);
@@ -288,9 +288,9 @@ describe('Serving userCompany assets', function() {
         })
         .then(function(comp) {
           expect(comp.name).to.equal(newUserCompany.name);
-          expect(comp.location).to.equal(newUserCompany.location);
+          expect(comp.location).to.deep.equal(newUserCompany.location); 
           expect(comp.industry).to.equal(newUserCompany.industry);
-          expect(comp.contact).to.equal(newUserCompany.contact);
+          expect(comp.contact).to.deep.equal(newUserCompany.contact);
           expect(comp.description).to.equal(newUserCompany.description);
           expect(comp.openToMerger).to.equal(newUserCompany.openToMerger);
           expect(comp.openToAcquisition).to.equal(newUserCompany.openToAcquisition);

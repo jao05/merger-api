@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
   	// Return all experts in the db
     .then(experts => {      
       res.json({
-        expertCompanies: experts
+        expertCompanies: experts.map(expert => expert.serialize())
       });
     })
     .catch(err => {
@@ -26,7 +26,7 @@ router.get("/", (req, res) => {
 
 });
 
-/**********************
+
 // GET by ID *******************************
 router.get("/:id", (req, res) => {  
   
@@ -36,14 +36,15 @@ router.get("/:id", (req, res) => {
     // call the `.serialize` instance method we've created in
     // models.js in order to only expose the data we want the API return.    
     .then(expert => {
-      res.json(expert.serialize())
+      res.json(expert.serialize()) // ********** WHY IS THIS NOT WORKING? ************
       })    
     .catch(err => {
       console.error(err);
       res.status(500).json({ message: "Internal server error" });
     });
 });
-***************************************/
+
+
 
 // POST
 router.post("/", jsonParser, (req, res) => {
@@ -57,6 +58,8 @@ router.post("/", jsonParser, (req, res) => {
     }
   }
 }); 
+
+
 
 // PUT or UPDATE
 router.put("/", jsonParser, (req, res) => {  
@@ -79,8 +82,10 @@ router.put("/", jsonParser, (req, res) => {
   });
 });
 
+
+
 // DELETE
-router.delete("/expert/:id", (req, res) => {
+router.delete("/experts/:id", (req, res) => {
   User.findByIdAndRemove(req.params.id)
     .then(expert => res.status(204).end())
     .catch(err => res.status(500).json({ message: "Internal server error" }));

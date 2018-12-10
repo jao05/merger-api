@@ -4,6 +4,8 @@ const chai = require('chai');
 // For mock HTTP requests for our tests
 const chaiHttp = require('chai-http');
 
+chai.use(require('chai-shallow-deep-equal'));
+
 // To use mongo db capabilities
 const mongoose = require('mongoose');
 
@@ -164,7 +166,7 @@ describe('Serving expert assets', function() {
 
   	it('should return experts with the correct fields', function() {
   		
-  		// Strategy: Get back all experts, and ensure they have expected keys
+  		// Strategy: Get back experts, and ensure they have expected keys
 
         let resExpert;
         return chai.request(app)
@@ -186,25 +188,29 @@ describe('Serving expert assets', function() {
             }); 
             
             resExpert = res.body.expertCompanies[0];            
-            console.log('AN EXPERTCOMP IS ', resExpert); // **********************************
-            return Expert.findById(resExpert.id); // **** THE PROBLEM IS HERE, diff btw 'id' & '_id' ***********
+            console.log('AN RESEXPERT IS ', resExpert); // **********************************
+            return Expert.findById(resExpert.id); 
            })
           .then(function(expertComp) {
             console.log('****EXPERTCOMP IS ', expertComp); // **************************
-            expect(resExpert.type).to.equal(expertComp.type); // ****expertComp is undefined****
+            expect(resExpert.type).to.equal(expertComp.type);
             expect(resExpert.name).to.equal(expertComp.name);
-            expect(resExpert.contact).to.equal(expertComp.contact);            
-            expect(resExpert.location).to.equal(expertComp.location);           
+            expect(resExpert.contact.firstName).to.shallowDeepEqual(expertComp.contact.firstName);
+            expect(resExpert.contact.lastName).to.shallowDeepEqual(expertComp.contact.lastName);
+            expect(resExpert.contact.email).to.shallowDeepEqual(expertComp.contact.email);            
+            expect(resExpert.location.city).to.shallowDeepEqual(expertComp.location.city);
+            expect(resExpert.location.state).to.shallowDeepEqual(expertComp.location.state);
+            expect(resExpert.location.country).to.shallowDeepEqual(expertComp.location.country);           
           });
     });	
   });  
 
 
-  // Try console logs*********************************************
+  
   // Test the POST request for the '/expert' endpoint
   describe('the POST endpoint', function() {
     
-    this.timeout(10000); // **** Added to deal with timeout error
+    this.timeout(20000); // **** Added to deal with timeout error
 
     // strategy: make a POST request with data,
     // then prove that the expert we get back has
@@ -212,6 +218,7 @@ describe('Serving expert assets', function() {
     // the data was inserted into db)
     it('should add a new expert', function() {
 
+      console.log('****DID WE GET HERE***'); // **********************
       const newExpert = {
         type: "sampleType",
         name: "sampleName",
@@ -232,6 +239,7 @@ describe('Serving expert assets', function() {
         .post('/experts')
         .send(newExpert)
         .then(function(res) {
+          console.log('****DID WE GET HERE 2***'); // **********************
           expect(res).to.have.status(201);
           expect(res).to.be.json;
           expect(res.body).to.be.a('object');
@@ -252,6 +260,7 @@ describe('Serving expert assets', function() {
           return Expert.findById(res.body.id);                       
         })
         .then(function(expert) {
+            console.log('DID WE GET HERE 3'); // **********************
             expect(expert.type).to.equal(newExpert.type);
             expect(expert.name).to.equal(newExpert.name);
             expect(expert.contact).to.equal(newExpert.contact);          
