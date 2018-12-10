@@ -91,7 +91,7 @@ router.post("/", jsonParser, (req, res) => {
 
 
 // PUT or UPDATE
-router.put("/", jsonParser, (req, res) => {  
+router.put("/:id", jsonParser, (req, res) => {  
 
   // we only support a subset of fields being updateable.
   // if the user sent over any of the updatableFields, we udpate those values
@@ -109,11 +109,17 @@ router.put("/", jsonParser, (req, res) => {
       toUpdate[field] = req.body[field];
     }
   });
+
+  UserCompany
+    // all key/value pairs in toUpdate will be updated -- that's what `$set` does
+    .findByIdAndUpdate(req.params.id, { $set: toUpdate })
+    .then(comp => res.status(201).json(comp.serialize()))
+    .catch(err => res.status(500).json({ message: "Internal server error" }));
 });
 
 // DELETE
-router.delete("/userCompany/:id", (req, res) => {
-  User.findByIdAndRemove(req.params.id)
+router.delete("/:id", (req, res) => {
+  UserCompany.findByIdAndRemove(req.params.id)
     .then(comp => res.status(204).end())
     .catch(err => res.status(500).json({ message: "Internal server error" }));
 });

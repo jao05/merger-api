@@ -376,6 +376,9 @@ describe('Serving userCompany assets', function() {
         })
         .then(function(_currentUserCompany) {
           expect(_currentUserCompany).to.be.null;
+        })
+        .catch( function(err){
+            console.log(err);
         });
     });
   });

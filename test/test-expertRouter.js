@@ -189,11 +189,10 @@ describe('Serving expert assets', function() {
             }); 
             
             resExpert = res.body.expertCompanies[0];            
-            console.log('AN RESEXPERT IS ', resExpert); // **********************************
             return Expert.findById(resExpert.id); 
            })
           .then(function(expertComp) {
-            console.log('****EXPERTCOMP IS ', expertComp); // **************************
+            
             expect(resExpert.type).to.equal(expertComp.type);
             expect(resExpert.name).to.equal(expertComp.name);
             expect(resExpert.contact.firstName).to.shallowDeepEqual(expertComp.contact.firstName);
@@ -211,15 +210,14 @@ describe('Serving expert assets', function() {
   // Test the POST request for the '/expert' endpoint
   describe('the POST endpoint', function() {
     
-    this.timeout(20000); // **** Added to deal with timeout error
+    
 
     // strategy: make a POST request with data,
     // then prove that the expert we get back has
     // right keys, and that `id` is there (which means
     // the data was inserted into db)
     it('should add a new expert', function() {
-
-      console.log('****DID WE GET HERE***'); // **********************
+      
       const newExpert = {
         type: "sampleType",
         name: "sampleName",
@@ -239,8 +237,7 @@ describe('Serving expert assets', function() {
       return chai.request(app)
         .post('/experts')
         .send(newExpert)
-        .then(function(res) {
-          console.log('****DID WE GET HERE 2***'); // **********************
+        .then(function(res) {          
           expect(res).to.have.status(201);
           expect(res).to.be.json;
           expect(res.body).to.be.a('object');
@@ -255,17 +252,24 @@ describe('Serving expert assets', function() {
           expect(res.body.name).to.equal(newExpert.name);
           // because Mongo should have created id on insertion
           expect(res.body.id).to.not.be.null;
-          expect(res.body.contact).to.equal(newExpert.contact);          
-          expect(res.body.location).to.equal(newExpert.location);          
+          expect(res.body.contact.firstName).to.shallowDeepEqual(newExpert.contact.firstName);
+          expect(res.body.contact.lastName).to.shallowDeepEqual(newExpert.contact.lastName);
+          expect(res.body.contact.email).to.shallowDeepEqual(newExpert.contact.email);
+          expect(res.body.location.city).to.shallowDeepEqual(newExpert.location.city);
+          expect(res.body.location.state).to.shallowDeepEqual(newExpert.location.state);
+          expect(res.body.location.country).to.shallowDeepEqual(newExpert.location.country);         
 
           return Expert.findById(res.body.id);                       
         })
-        .then(function(expert) {
-            console.log('DID WE GET HERE 3'); // **********************
+        .then(function(expert) {            
             expect(expert.type).to.equal(newExpert.type);
             expect(expert.name).to.equal(newExpert.name);
-            expect(expert.contact).to.equal(newExpert.contact);          
-            expect(expert.location).to.equal(newExpert.location);          
+            expect(expert.contact.firstName).to.shallowDeepEqual(newExpert.contact.firstName);
+            expect(expert.contact.lastName).to.shallowDeepEqual(newExpert.contact.lastName);
+            expect(expert.contact.email).to.shallowDeepEqual(newExpert.contact.email);         
+            expect(expert.location.city).to.shallowDeepEqual(newExpert.location.city);
+            expect(expert.location.state).to.shallowDeepEqual(newExpert.location.state);
+            expect(expert.location.country).to.shallowDeepEqual(newExpert.location.country);          
         });
       });
   });
@@ -300,6 +304,7 @@ describe('Serving expert assets', function() {
       return Expert
         .findOne()
         .then(function(expert) {
+          console.log('****epxert is ', expert); 
           updateData.id = expert.id;
 
           // make request then inspect it to make sure it reflects
@@ -308,7 +313,7 @@ describe('Serving expert assets', function() {
             .put(`/experts/${expert.id}`)
             .send(updateData);
         })
-        .then(function(res) {
+        .then(function(res) {  
           expect(res).to.have.status(201);
           expect(res.body).to.be.a('object');
 
@@ -317,8 +322,12 @@ describe('Serving expert assets', function() {
         .then(function(expert) {
           expect(expert.name).to.equal(updateData.name);
           expect(expert.type).to.equal(updateData.type);
-          expect(expert.contact).to.equal(updateData.contact);
-          expect(expert.location).to.equal(updateData.location);
+          expect(expert.contact.firstName).to.shallowDeepEqual(updateData.contact.firstName);
+          expect(expert.contact.lastName).to.shallowDeepEqual(updateData.contact.lastName);
+          expect(expert.contact.email).to.shallowDeepEqual(updateData.contact.email);
+          expect(expert.location.city).to.shallowDeepEqual(updateData.location.city);
+          expect(expert.location.state).to.shallowDeepEqual(updateData.location.state);
+          expect(expert.location.country).to.shallowDeepEqual(updateData.location.country);
         });
     })
   });
@@ -342,6 +351,7 @@ describe('Serving expert assets', function() {
         .findOne()
         .then(function(_currentExpert) {
           currentExpert = _currentExpert;
+          console.log('currentExpert is', currentExpert);
           return chai.request(app).delete(`/experts/${currentExpert.id}`);
         })
         .then(function(res) {
@@ -350,6 +360,9 @@ describe('Serving expert assets', function() {
         })
         .then(function(_currentExpert) {
           expect(_currentExpert).to.be.null;
+        })
+        .catch( function(err){
+            console.log(err);
         });
     });
   });

@@ -57,12 +57,26 @@ router.post("/", jsonParser, (req, res) => {
       return res.status(400).send(message);
     }
   }
+
+  Expert.create({
+    name: req.body.name,
+    type: req.body.type,
+    contact: req.body.contact,
+    location: req.body.location
+  })
+  .then(expert => {
+    res.status(201).json(expert.serialize()); // **** try POST in postman
+  })
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  });
 }); 
 
 
 
 // PUT or UPDATE
-router.put("/", jsonParser, (req, res) => {  
+router.put("/:id", jsonParser, (req, res) => {  
 
   // We allow all fields to be updated in this case.
   // If the user sent over any of the updatableFields, we udpate those values
@@ -80,13 +94,19 @@ router.put("/", jsonParser, (req, res) => {
       toUpdate[field] = req.body[field];
     }
   });
+
+  Expert
+    // all key/value pairs in toUpdate will be updated -- that's what `$set` does
+    .findByIdAndUpdate(req.params.id, { $set: toUpdate })
+    .then(expert => res.status(201).json(expert.serialize()))
+    .catch(err => res.status(500).json({ message: "Internal server error" }));
 });
 
 
 
 // DELETE
-router.delete("/experts/:id", (req, res) => {
-  User.findByIdAndRemove(req.params.id)
+router.delete("/:id", (req, res) => {
+  Expert.findByIdAndRemove(req.params.id)
     .then(expert => res.status(204).end())
     .catch(err => res.status(500).json({ message: "Internal server error" }));
 });
