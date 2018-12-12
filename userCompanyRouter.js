@@ -12,8 +12,8 @@ const {UserCompany, Expert} = require('./models');
 router.use(jsonParser);
 
 // on GET requests to root
-router.get("/", (req, res) => {
-  
+router.get("/:industry/:location", (req, res) => {
+  console.log(req.params.industry, req.params.location); // ************************
   UserCompany.find()
 
   	// success callback: for each UserCompany we got back, we'll

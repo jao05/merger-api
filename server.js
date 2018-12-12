@@ -6,6 +6,13 @@ const {PORT, DATABASE_URL} = require('./config');
 const cors = require('cors');
 const {CLIENT_ORIGIN} = require('./config');
 
+// Use CORS
+app.use(
+    cors({
+        origin: CLIENT_ORIGIN
+    })
+);
+
 // To log the HTTP layer
 const morgan = require('morgan');
 
@@ -36,14 +43,6 @@ app.use("/userCompany", userCompanyRouter);
 // router instance we've imported. Remember,
 // this router instance acts as a modular, mini-express app.
 app.use("/experts", expertRouter);
-
-
-// Use CORS
-app.use(
-    cors({
-        origin: CLIENT_ORIGIN
-    })
-);
 
 
 app.get('/api/*', (req, res) => {
