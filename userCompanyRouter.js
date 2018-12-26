@@ -12,9 +12,29 @@ const {UserCompany, Expert} = require('./models');
 router.use(jsonParser);
 
 // on GET requests to root
-router.get("/:industry/:location", (req, res) => {
+router.get("/:industry/:location/:type", (req, res) => {
   console.log(req.params.industry, req.params.location); // ************************
-  UserCompany.find()
+  let openToMerger = false;
+  let openToAcquisition = false;
+  let openToSell = false;
+
+  if (req.params.type == 'merger') {
+
+    let openToMerger = true;
+  }
+
+  if (req.params.type == 'acquistion') {
+
+    let openToAcquisition = true;
+  }
+
+  if (req.params.type == 'sell') {
+
+    let openToSell = true;
+  }
+
+  UserCompany.find({"industry": req.params.industry, "location.city": req.params.location, 
+    "openToMerger": openToMerger, "openToAcquisition": openToAcquisition, "openToSell": openToSell})
 
   	// success callback: for each UserCompany we got back, we'll
     // call the `.serialize` instance method we've created in

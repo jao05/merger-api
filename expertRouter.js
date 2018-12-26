@@ -9,14 +9,14 @@ const {Expert} = require('./models');
 router.use(jsonParser);
 
 // GET
-router.get("/", (req, res) => {
+router.get("/:type/:location", (req, res) => {
   
   Expert.find()
 
   	// Return all experts in the db
     .then(experts => {      
       res.json({
-        expertCompanies: experts.map(expert => expert.serialize())
+        companies: experts.map(expert => expert.serialize())
       });
     })
     .catch(err => {
