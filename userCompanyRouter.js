@@ -33,8 +33,7 @@ router.get("/:industry/:location/:type", (req, res) => {
     let openToSell = true;
   }
 
-  UserCompany.find({"industry": req.params.industry, "location.city": req.params.location, 
-    "openToMerger": openToMerger, "openToAcquisition": openToAcquisition, "openToSell": openToSell})
+  UserCompany.find({"industry": req.params.industry, "location.city": req.params.location})
 
   	// success callback: for each UserCompany we got back, we'll
     // call the `.serialize` instance method we've created in
