@@ -52,9 +52,26 @@ router.get("/:industry/:location/:type", (req, res) => {
 
 // POST WITH AUTHENTICATION
 // ************** This is a user login after they have already signed up (initial POST)?*********************
-router.post("/login", localAuth, (req, res) => {
-    console.log('login works....');
-    res.status(200).json(req.user.serialize()); 
+router.post("/login", async (req, res) => {
+    console.log('login works....'); //********************************
+    try {
+      const company = await UserCompany.findOne({
+        name: req.body.name,
+      });
+      const success = await company.validatePassword(req.body.password);
+      console.log('success is', success);
+      if(success) {
+        console.log('100'); //********************************
+        res.status(200).json(company);        
+      }
+      else {
+        console.log('Not 100'); //********************************
+        res.status(401).send('Incorrect login credentials');
+      }
+    }
+    catch(e) {
+      res.status(400).send(e.message);
+    }    
 });
 
 

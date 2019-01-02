@@ -4,12 +4,8 @@ const bcrypt = require("bcryptjs");
 
 // this is our schema to represent a user company
 const userCompanySchema = mongoose.Schema({
-  name: { type: String, required: true },
-  location: {  
-  	city: { type: String, required: true },
-  	state: { type: String, required: true },
-  	country: { type: String, required: true }
-  },  
+  name: { type: String, required: true, unique: true },
+  location: { type: String, required: true },  
   industry: { type: String, required: true },
   contact: {
   	firstName: { type: String, required: true },
@@ -52,8 +48,7 @@ userCompanySchema.statics.hashPassword = function(password) {
 
 
 // this is our schema to represent an expert
-const expertSchema = mongoose.Schema({
-  
+const expertSchema = mongoose.Schema({  
 	type: String,
 	name: String,
 	contact: {
@@ -61,12 +56,7 @@ const expertSchema = mongoose.Schema({
 		lastName: String,
 		email: String
 	},
-	location: {
-
-		city: String,
-		state: String,
-		country: String
-	}
+	location: String
 });
 
 // Serialize the expert model
