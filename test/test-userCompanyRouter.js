@@ -155,10 +155,10 @@ describe('Serving userCompany assets', function() {
         let res;
 
         return chai.request(app)
-          .get('/userCompany?industry=Health&openToMerger=true')          
+          .get('/userCompany/Health/Memphis')          
           .then(function(_res) {
             // so subsequent .then blocks can access response object
-            res = _res;
+            res = _res;            
             expect(res).to.have.status(200);                      
             expect(res.body.companies).to.have.lengthOf.at.least(1);  // otherwise our db seeding didn't work
           })  
@@ -171,8 +171,8 @@ describe('Serving userCompany assets', function() {
 
         let resCompany;
         return chai.request(app)
-          .get('/userCompany?industry=Health&openToMerger=true')
-          .then(function(res) {
+          .get('/userCompany/Health/Memphis')
+          .then(function(res) {            
             expect(res).to.have.status(200);
             expect(res).to.be.json;            
             expect(res.body.companies).to.be.a('array');
@@ -314,7 +314,7 @@ describe('Serving userCompany assets', function() {
         .findOne()
         .then(function(comp) {
           updateData.id = comp.id;
-
+          console.log('comp.id is...', comp.id); //*********************************
           // make request then inspect it to make sure it reflects
           // data we sent
           return chai.request(app)
@@ -322,6 +322,7 @@ describe('Serving userCompany assets', function() {
             .send(updateData);
         })
         .then(function(res) {
+          console.log('res.body is', res.body); //*********************************
           expect(res).to.have.status(201);
           expect(res.body).to.be.a('object');
 

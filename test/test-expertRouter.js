@@ -136,12 +136,12 @@ describe('Serving expert assets', function() {
         let res;
 
         return chai.request(app)
-          .get('/experts?type=Legal')          
+          .get('/experts/Legal/Boston')          
           .then(function(_res) {            
             // so subsequent .then blocks can access response object
-            res = _res;
+            res = _res;            
             expect(res).to.have.status(200);                      
-            expect(res.body.expertCompanies).to.have.lengthOf.at.least(1);  // otherwise our db seeding didn't work
+            expect(res.body.companies).to.have.lengthOf.at.least(1);  // otherwise our db seeding didn't work
           })  
   	});
 
@@ -151,14 +151,14 @@ describe('Serving expert assets', function() {
 
         let resExpert;
         return chai.request(app)
-          .get('/experts?type=Legal')
-          .then(function(res) {
+          .get('/experts/Legal/Boston')
+          .then(function(res) {            
             expect(res).to.have.status(200);
             expect(res).to.be.json;            
-            expect(res.body.expertCompanies).to.be.a('array');
-            expect(res.body.expertCompanies).to.have.lengthOf.at.least(1);
+            expect(res.body.companies).to.be.a('array');
+            expect(res.body.companies).to.have.lengthOf.at.least(1);
 
-            res.body.expertCompanies.forEach(function(expertCompany) {
+            res.body.companies.forEach(function(expertCompany) {
               expect(expertCompany).to.be.a('object');
               expect(expertCompany).to.include.keys(
                 'type',
@@ -168,7 +168,7 @@ describe('Serving expert assets', function() {
               );
             }); 
             
-            resExpert = res.body.expertCompanies[0];            
+            resExpert = res.body.companies[0];            
             return Expert.findById(resExpert.id); 
            })
           .then(function(expertComp) {

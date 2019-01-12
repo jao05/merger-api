@@ -12,7 +12,7 @@ const {UserCompany, Expert} = require('./models');
 router.use(jsonParser);
 
 // on GET requests to root
-router.get("/:industry/:location/:type", (req, res) => {
+router.get("/:industry/:location", (req, res) => {
   console.log(req.params.industry, req.params.location); // ************************
   let openToMerger = false;
   let openToAcquisition = false;
@@ -137,7 +137,7 @@ router.post("/", jsonParser, (req, res) => {
 
 
 // PUT or UPDATE
-router.put("/edit/:id", jsonParser, (req, res) => {  
+router.put("/:id", jsonParser, (req, res) => {  
 
   // we only support a subset of fields being updateable.
   // if the user sent over any of the updatableFields, we udpate those values
