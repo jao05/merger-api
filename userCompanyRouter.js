@@ -12,7 +12,7 @@ const {UserCompany, Expert} = require('./models');
 router.use(jsonParser);
 
 // on GET requests to root
-router.get("/:industry/:location", (req, res) => {
+router.get("/:industry/:location/merger", (req, res) => {
   console.log(req.params.industry, req.params.location); // ************************
   let openToMerger = false;
   let openToAcquisition = false;
