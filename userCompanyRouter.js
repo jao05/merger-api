@@ -33,7 +33,7 @@ router.get("/:industry/:location/:type", (req, res) => {
     let openToSell = true;
   }
 
-  UserCompany.find({"industry": req.params.industry, "location.city": req.params.location})
+  UserCompany.find({"industry": req.params.industry, "location": req.params.location})
 
   	// success callback: for each UserCompany we got back, we'll
     // call the `.serialize` instance method we've created in
@@ -50,6 +50,9 @@ router.get("/:industry/:location/:type", (req, res) => {
 
 });
 
+
+
+
 // POST WITH AUTHENTICATION
 // ************** This is a user login after they have already signed up (initial POST)?*********************
 router.post("/login", async (req, res) => {
@@ -59,10 +62,10 @@ router.post("/login", async (req, res) => {
         name: req.body.name,
       });
       const success = await company.validatePassword(req.body.password);
-      console.log('success is', success);
+      console.log('success is', success); //************************************
       if(success) {
         console.log('100'); //********************************
-        res.status(200).json(company);        
+        res.status(200).json(company.serialize());        
       }
       else {
         console.log('Not 100'); //********************************
@@ -70,9 +73,13 @@ router.post("/login", async (req, res) => {
       }
     }
     catch(e) {
+      console.log(e); // ************************************************
       res.status(400).send(e.message);
     }    
 });
+
+
+
 
 
 // POST
@@ -126,8 +133,11 @@ router.post("/", jsonParser, (req, res) => {
 });
 
 
+
+
+
 // PUT or UPDATE
-router.put("/:id", jsonParser, (req, res) => {  
+router.put("/edit/:id", jsonParser, (req, res) => {  
 
   // we only support a subset of fields being updateable.
   // if the user sent over any of the updatableFields, we udpate those values
@@ -136,8 +146,10 @@ router.put("/:id", jsonParser, (req, res) => {
   const updateableFields = [
     "openToMerger", 
     "openToAcquisition", 
-    "openToSell", 
-    "contact"
+    "openToSell",
+    "name",
+    "location",
+    "industry"    
   ];
 
   updateableFields.forEach(field => {
@@ -148,7 +160,7 @@ router.put("/:id", jsonParser, (req, res) => {
 
   UserCompany
     // all key/value pairs in toUpdate will be updated -- that's what `$set` does
-    .findByIdAndUpdate(req.params.id, { $set: toUpdate })
+    .findByIdAndUpdate(req.params.id, toUpdate, {new: true})
     .then(comp => res.status(201).json(comp.serialize()))
     .catch(err => res.status(500).json({ message: "Internal server error" }));
 });
@@ -156,8 +168,8 @@ router.put("/:id", jsonParser, (req, res) => {
 // DELETE
 router.delete("/:id", (req, res) => {
   UserCompany.findByIdAndRemove(req.params.id)
-    .then(comp => res.status(204).end())
-    .catch(err => res.status(500).json({ message: "Internal server error" }));
+    .then(comp => res.status(201).json({message: 'Account was deleted.'})
+    .catch(err => res.status(500).json({ message: "Internal server error" })));
 });
 
 module.exports = router;

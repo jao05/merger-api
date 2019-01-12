@@ -11,7 +11,7 @@ router.use(jsonParser);
 // GET
 router.get("/:type/:location", (req, res) => {
   
-  Expert.find()
+  Expert.find({"type": req.params.type, "location": req.params.location})
 
   	// Return all experts in the db
     .then(experts => {      
@@ -27,7 +27,7 @@ router.get("/:type/:location", (req, res) => {
 });
 
 
-// GET by ID *******************************
+// GET by ID 
 router.get("/:id", (req, res) => {  
   
   Expert.findById(req.query.id)
@@ -36,7 +36,7 @@ router.get("/:id", (req, res) => {
     // call the `.serialize` instance method we've created in
     // models.js in order to only expose the data we want the API return.    
     .then(expert => {
-      res.json(expert.serialize()) // ********** WHY IS THIS NOT WORKING? ************
+      res.json(expert.serialize()) 
       })    
     .catch(err => {
       console.error(err);
