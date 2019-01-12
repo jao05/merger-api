@@ -198,9 +198,10 @@ describe('Serving expert assets', function() {
             expect(resExpert.contact.firstName).to.shallowDeepEqual(expertComp.contact.firstName);
             expect(resExpert.contact.lastName).to.shallowDeepEqual(expertComp.contact.lastName);
             expect(resExpert.contact.email).to.shallowDeepEqual(expertComp.contact.email);            
-            expect(resExpert.location.city).to.shallowDeepEqual(expertComp.location.city);
-            expect(resExpert.location.state).to.shallowDeepEqual(expertComp.location.state);
-            expect(resExpert.location.country).to.shallowDeepEqual(expertComp.location.country);           
+            // expect(resExpert.location.city).to.shallowDeepEqual(expertComp.location.city);
+            // expect(resExpert.location.state).to.shallowDeepEqual(expertComp.location.state);
+            // expect(resExpert.location.country).to.shallowDeepEqual(expertComp.location.country);
+            expect(resExpert.location).to.shallowDeepEqual(expertComp.location);
           });
     });	
   });  
