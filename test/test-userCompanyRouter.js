@@ -155,7 +155,7 @@ describe('Serving userCompany assets', function() {
         let res;
 
         return chai.request(app)
-          .get('/userCompany/Health/Memphis')          
+          .get('/userCompany/Health/Memphis/merger')          
           .then(function(_res) {
             // so subsequent .then blocks can access response object
             res = _res;            
@@ -171,7 +171,7 @@ describe('Serving userCompany assets', function() {
 
         let resCompany;
         return chai.request(app)
-          .get('/userCompany/Health/Memphis')
+          .get('/userCompany/Health/Memphis/merger')
           .then(function(res) {            
             expect(res).to.have.status(200);
             expect(res).to.be.json;            

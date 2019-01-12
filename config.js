@@ -2,6 +2,7 @@
 
 // For CORS capability
 exports.CLIENT_ORIGIN = 'https://guarded-anchorage-26538.herokuapp.com';
+//exports.CLIENT_ORIGIN = 'localhost????????';
 
 
 // Use production database url
