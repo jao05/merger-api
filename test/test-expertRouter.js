@@ -256,9 +256,10 @@ describe('Serving expert assets', function() {
           expect(res.body.contact.firstName).to.shallowDeepEqual(newExpert.contact.firstName);
           expect(res.body.contact.lastName).to.shallowDeepEqual(newExpert.contact.lastName);
           expect(res.body.contact.email).to.shallowDeepEqual(newExpert.contact.email);
-          expect(res.body.location.city).to.shallowDeepEqual(newExpert.location.city);
-          expect(res.body.location.state).to.shallowDeepEqual(newExpert.location.state);
-          expect(res.body.location.country).to.shallowDeepEqual(newExpert.location.country);         
+          // expect(res.body.location.city).to.shallowDeepEqual(newExpert.location.city);
+          // expect(res.body.location.state).to.shallowDeepEqual(newExpert.location.state);
+          // expect(res.body.location.country).to.shallowDeepEqual(newExpert.location.country);
+          expect(res.body.location).to.shallowDeepEqual(newExpert.location);
 
           return Expert.findById(res.body.id);                       
         })
@@ -268,9 +269,10 @@ describe('Serving expert assets', function() {
             expect(expert.contact.firstName).to.shallowDeepEqual(newExpert.contact.firstName);
             expect(expert.contact.lastName).to.shallowDeepEqual(newExpert.contact.lastName);
             expect(expert.contact.email).to.shallowDeepEqual(newExpert.contact.email);         
-            expect(expert.location.city).to.shallowDeepEqual(newExpert.location.city);
-            expect(expert.location.state).to.shallowDeepEqual(newExpert.location.state);
-            expect(expert.location.country).to.shallowDeepEqual(newExpert.location.country);          
+            // expect(expert.location.city).to.shallowDeepEqual(newExpert.location.city);
+            // expect(expert.location.state).to.shallowDeepEqual(newExpert.location.state);
+            // expect(expert.location.country).to.shallowDeepEqual(newExpert.location.country);
+            expect(expert.location).to.shallowDeepEqual(newExpert.location);
         });
       });
   });
@@ -326,9 +328,10 @@ describe('Serving expert assets', function() {
           expect(expert.contact.firstName).to.shallowDeepEqual(updateData.contact.firstName);
           expect(expert.contact.lastName).to.shallowDeepEqual(updateData.contact.lastName);
           expect(expert.contact.email).to.shallowDeepEqual(updateData.contact.email);
-          expect(expert.location.city).to.shallowDeepEqual(updateData.location.city);
-          expect(expert.location.state).to.shallowDeepEqual(updateData.location.state);
-          expect(expert.location.country).to.shallowDeepEqual(updateData.location.country);
+          // expect(expert.location.city).to.shallowDeepEqual(updateData.location.city);
+          // expect(expert.location.state).to.shallowDeepEqual(updateData.location.state);
+          // expect(expert.location.country).to.shallowDeepEqual(updateData.location.country);
+          expect(expert.location).to.shallowDeepEqual(updateData.location);
         });
     })
   });

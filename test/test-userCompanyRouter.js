@@ -297,9 +297,11 @@ describe('Serving userCompany assets', function() {
         })
         .then(function(comp) {
           expect(comp.name).to.equal(newUserCompany.name);
-          expect(comp.location.city).to.shallowDeepEqual(newUserCompany.location.city);
-          expect(comp.location.state).to.shallowDeepEqual(newUserCompany.location.state);
-          expect(comp.location.country).to.shallowDeepEqual(newUserCompany.location.country);
+          
+          expect(comp.location).to.shallowDeepEqual(newUserCompany.location);
+          // expect(comp.location.city).to.shallowDeepEqual(newUserCompany.location.city);
+          // expect(comp.location.state).to.shallowDeepEqual(newUserCompany.location.state);
+          // expect(comp.location.country).to.shallowDeepEqual(newUserCompany.location.country);
           expect(comp.industry).to.equal(newUserCompany.industry);
           expect(comp.contact.firstName).to.deep.equal(newUserCompany.contact.firstName);
           expect(comp.contact.lastName).to.deep.equal(newUserCompany.contact.lastName);
