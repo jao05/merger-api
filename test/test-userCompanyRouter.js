@@ -40,11 +40,7 @@ function seedUserCompanyData(){
   const seededUserCompanies = [
       {
         name: "Dev Inc.",
-  		location: {  
-	  		city: "San Francisco",
-	  		state: "CA",
-	  		country: "United States"
-	  	},  
+  		location: "San Francisco",  
 	  	industry: "Technology",
 	  	contact: {
 	  		firstName: "Tim",
@@ -59,11 +55,7 @@ function seedUserCompanyData(){
       },
       {
         name: "Money Inc.",
-  		location: {  
-	  		city: "New York",
-	  		state: "NY",
-	  		country: "United States"
-	  	},  
+  		location: "New York",  
 	  	industry: "Financial",
 	  	contact: {
 	  		firstName: "Mitch",
@@ -78,11 +70,7 @@ function seedUserCompanyData(){
       },
       {
         name: "Barber Inc.",
-  		location: {  
-	  		city: "Atlanta",
-	  		state: "GA",
-	  		country: "United States"
-	  	},  
+  		location: "Atlanta",  
 	  	industry: "Beauty",
 	  	contact: {
 	  		firstName: "Billy",
@@ -97,11 +85,7 @@ function seedUserCompanyData(){
       },
       {
         name: "Doctor Inc.",
-  		location: {  
-	  		city: "Memphis",
-	  		state: "TN",
-	  		country: "United States"
-	  	},  
+  		location: "Memphis",  
 	  	industry: "Health",
 	  	contact: {
 	  		firstName: "Dylan",

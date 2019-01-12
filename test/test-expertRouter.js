@@ -46,12 +46,7 @@ function seedExpertData(){
 			   lastName: "Law",
 			   email: "larry@law.com"
 		    },
-		    location: {
-
-			   city: "New York",
-			   state: "NY",
-			   country: "United States"
-		    }
+		    location: "New York"
       },
       {
         type: "Financial",
@@ -61,12 +56,7 @@ function seedExpertData(){
 			   lastName: "Banker",
 			   email: "billy@banker.com"
 		    },
-		    location: {
-
-			   city: "New York",
-			   state: "NY",
-			   country: "United States"
-		    }
+		    location: "New York"
       },
       {
         type: "Financial",
@@ -76,12 +66,7 @@ function seedExpertData(){
 			   lastName: "Banks",
 			   email: "brandon@bigbank.com"
 		    },
-		    location: {
-
-			   city: "New York",
-			   state: "NY",
-			   country: "United States"
-		    }
+		    location: "New York"
       },
       {
         type: "Legal",
@@ -91,12 +76,7 @@ function seedExpertData(){
     			lastName: "Juris",
     			email: "jerry@bl.com"
 		    },
-		    location: {
-
-    			city: "Boston",
-    			state: "MA",
-    			country: "United States"
-		    }
+		    location: "Boston"
       }
     ]
   
