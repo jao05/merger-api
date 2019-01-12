@@ -229,11 +229,7 @@ describe('Serving userCompany assets', function() {
 
       const newUserCompany = {
         name: "sampleName",
-        location: {  
-          city: "sampleCity",
-          state: "sampleState",
-          country: "sampleCountry"
-        },  
+        location: "sampleCity",  
         industry: "sampleIndustry",
         contact: {
           firstName: "sampleFirstName",

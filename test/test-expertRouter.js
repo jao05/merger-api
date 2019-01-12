@@ -207,12 +207,7 @@ describe('Serving expert assets', function() {
           lastName: "sampleLastName",
           email: "sampleEmail"
         },
-        location: {
-
-          city: "sampleCity",
-          state: "sampleState",
-          country: "sampleCountry"
-        }
+        location: "sampleCity"
       }
 
       return chai.request(app)
@@ -277,11 +272,7 @@ describe('Serving expert assets', function() {
           lastName: "updatedLastName",
           email: "updatedEmail"
         },
-        location: {
-          city: "updatedCity",
-          state: "updatedState",
-          country: "updatedCountry"
-        }
+        location: "updatedCity"
       };
 
       return Expert
